@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Cobalt
+  - Health
+  - Destroyer
+  - Bomb
+  - Ground
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Background
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 897958073
+    locked: 0
+  - name: Cave1
+    uniqueID: 3599009365
+    locked: 0
+  - name: Cave2
+    uniqueID: 484754321
+    locked: 0
+  - name: Cave3
+    uniqueID: 3521602249
+    locked: 0
+  - name: Game
+    uniqueID: 394832983
+    locked: 0
+  - name: Ground
+    uniqueID: 2680627021
+    locked: 0
+  m_RenderingLayers:
+  - Default
