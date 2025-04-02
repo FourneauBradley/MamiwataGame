@@ -1,4 +1,6 @@
+using System;
 using System.Threading.Tasks;
+using Assets.Scripts;
 using UnityEngine;
 
 
@@ -13,18 +15,16 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    void Start()
-    {
-        
-    }
     void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float kayboardInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = Mathf.Abs(kayboardInput) > 0.01f ? kayboardInput : TouchInput.touchDirection;
         body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
     }
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float kayboardInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = Mathf.Abs(kayboardInput) > 0.01f ? kayboardInput : TouchInput.touchDirection;
         bool isMoving = Mathf.Abs(horizontalInput) > 0.01f;
 
         animator.SetBool("isMoving", isMoving);
@@ -44,10 +44,9 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = localScale;
             }
 
-            // Faire bouger tous les éléments de parallax
             foreach (var parallax in parallaxItems)
             {
-                parallax.Scroll(-horizontalInput); // Inverser pour donner l'effet de profondeur
+                parallax.Scroll(-horizontalInput);
             }
         }
     }

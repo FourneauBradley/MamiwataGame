@@ -149,7 +149,8 @@ public class ViewportHandler : MonoBehaviour
         }
         else
         {
-            camera.orthographicSize = UnitsSize / 2f;
+            camera.orthographicSize = Mathf.Max(UnitsSize / 2f, Screen.height / (float)Screen.width * UnitsSize / 2f);
+
         }
 
         _height = 2f * camera.orthographicSize;

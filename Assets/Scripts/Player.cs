@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,11 +11,14 @@ public class Player : MonoBehaviour
     private float interval = 1f;
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private Color flashColor;
+    [SerializeField] private GameObject GameOverPanel;
     private Animator animator;
     private bool isInvincible = false;  
     private float invincibilityDuration =0.5f;
 
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private Database db;
+    private Database.Contestant currentPlayer;
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -30,7 +35,7 @@ public class Player : MonoBehaviour
     }
     public bool RemoveHealth(int amount = 1)
     {
-        if (isInvincible)
+        if (isInvincible || currentHealth <= 0)
             return false;
 
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
@@ -62,6 +67,17 @@ public class Player : MonoBehaviour
     }
     private void GameOver()
     {
+        currentPlayer=StartPlay.player;
+        try
+        {
+            string jsonBody = "{\"score\": \"" + score + "\"}";
+            Debug.Log(currentPlayer.email+" "+currentPlayer.idmonth);
+            StartCoroutine(db.PutContestant(currentPlayer, jsonBody));
+        }
+        catch (Exception error)
+        {
+            Debug.Log(" ok"+error);
+        }
         ItemFall[] items = GameObject.FindObjectsByType<ItemFall>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         foreach (ItemFall item in items)
         {
@@ -70,6 +86,7 @@ public class Player : MonoBehaviour
         }
         movement.enabled = false;
         animator.SetBool("isDead", true);
+        GameOverPanel.SetActive(true);
     }
     
     private IEnumerator AddScoreRoutine()
@@ -77,11 +94,15 @@ public class Player : MonoBehaviour
         while (currentHealth > 0)
         {
             yield return new WaitForSeconds(interval);
-            score++;
+            if(currentHealth >0 ) score++;
         }
     }
     public void AddScore(int amount)
     {
         score += amount;
     }
+    /*public void ReceiveData(Database.Contestant contestant) { 
+        currentPlayer=contestant;
+        Debug.Log(contestant.email+" "+contestant.idmonth);
+    }*/
 }

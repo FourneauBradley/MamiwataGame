@@ -9,6 +9,7 @@ TagManager:
   - Destroyer
   - Bomb
   - Ground
+  - BonusScore
   layers:
   - Default
   - TransparentFX
@@ -63,6 +64,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 2680627021
+    locked: 0
+  - name: UI
+    uniqueID: 2328232589
     locked: 0
   m_RenderingLayers:
   - Default
